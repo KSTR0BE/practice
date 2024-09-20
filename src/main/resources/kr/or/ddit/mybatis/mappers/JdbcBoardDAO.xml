@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ddit.jdbcboard.dao.JdbcBoardDAO"> 
+<!-- 	<resultMap type="kr.or.ddit.vo.JdbcBoardVO" id="jbMap"> -->
+<!-- 		<id column="BOARD_NO" property="boardNo"/> -->
+<!-- 		<result column="BOARD_TITLE" property="boardTitle"/> -->
+<!-- 		<result column="BOARD_WRITER" property="boardWriter"/> -->
+<!-- 		<result column="BOARD_DATE" property="boardDate"/> -->
+<!-- 		<result column="BOARD_CONTENT" property="boardContent"/> -->
+<!-- 	</resultMap> -->
+
+	<insert id="insertJdbcBorad" parameterType="JdbcBoardVO">
+		INSERT INTO JDBC_BOARD( BOARD_NO, BOARD_TITLE, BOARD_WRITER , BOARD_DATE, BOARD_CONTENT)
+		VALUES( BOARD_SEQ.NEXTVAL, #{boardTitle,jdbcType=VARCHAR}, #{boardWriter,jdbcType=VARCHAR}, SYSDATE, #{boardContent,jdbcType=CLOB})
+	
+	</insert>
+	
+	<select id="selectJdbcBoardList" resultType="JdbcBoardVO">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, TO_CHAR(BOARD_DATE, 'YYYY-MM-DD HH24:MI:SS') BOARD_DATE
+		FROM JDBC_BOARD
+		ORDER BY BOARD_NO DESC
+	</select>
+	
+	<select id="selectJdbcBoard" parameterType="int" resultType="JdbcBoardVO">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CONTENT
+		FROM JDBC_BOARD
+		WHERE BOARD_NO = #{no,jdbcType=NUMERIC}
+	</select>
+	
+	<update id="updateJdbcBoard" parameterType="JdbcBoardVO" >
+		UPDATE JDBC_BOARD
+		SET
+		BOARD_CONTENT = #{boardContent}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<delete id="deleteJdbcBoard" parameterType="int">
+		DELETE FROM JDBC_BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</delete>
+	
+	
+</mapper>

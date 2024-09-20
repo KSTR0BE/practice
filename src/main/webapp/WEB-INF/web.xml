@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  <welcome-file-list>
+    <welcome-file>index.do</welcome-file>
+  </welcome-file-list>
+  
+<!--   /WEB-INF/tiles.xml에 등록된 definition들로 TilesContext를 형성하기 위한 리스너 -->
+<!-- 타일즈 -->
+	<listener>
+	    <listener-class>org.apache.tiles.web.startup.simple.SimpleTilesListener</listener-class>
+	</listener>
+
+<!-- 특수 문자 -->
+	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>kr.or.ddit.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+<!-- 인증 인가 -->
+	<filter>
+		<filter-name>GeneratePrincipalFilter</filter-name>
+		<filter-class>kr.or.ddit.login.filter.GeneratePrincipalFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>GeneratePrincipalFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>AuthenticationFilter</filter-name>
+		<filter-class>kr.or.ddit.login.filter.AuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthenticationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>AuthorizationFilter</filter-name>
+		<filter-class>kr.or.ddit.login.filter.AuthorizationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AuthorizationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	  <filter>
+	  	<filter-name>CacheControlFilter</filter-name>
+	  	<filter-class>kr.or.ddit.filter.CacheControlFilter</filter-class>
+	  </filter>
+	  
+	  <filter-mapping>
+	  	<filter-name>CacheControlFilter</filter-name>
+	  	<url-pattern>/*</url-pattern>
+	  </filter-mapping>
+	 
+<!-- 	 컨트롤러가 /논리적뷰네임.tiles로 forward로 이동하는 경우, TilesDispatcherServlet이 해당 요철을 받고,  -->
+<!-- 	 등록된 definition의 이름을 검색하기 위한 조건으로 논리적뷰네임을 사용함. -->
+	<servlet>
+	    <servlet-name>Tiles Dispatch Servlet</servlet-name>
+	    <servlet-class>org.apache.tiles.web.util.TilesDispatchServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	  <servlet-name>Tiles Dispatch Servlet</servlet-name>
+	  <url-pattern>*.tiles</url-pattern>
+	</servlet-mapping>
+  
+
+</web-app>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //함수 선언하는 방법
+        //1. 함수 선언식.
+        function fun1(){}
+        //2. 함수 표현식.
+        const func2 = function(){}
+        const func3 = ()=>{}
+        const Log = console.log;
+
+        console.log(func2);
+        console.log(func3);
+
+        //익명 함수 정의 및 호출
+        (function(){
+            console.log("익명 함수 실행");
+        })();
+        (()=>{
+            console.log("익명함수 또 실행")
+            Log("ㅎㅇ")
+        })();
+
+        const callFunc = (func) => {
+            func();
+        }
+
+        callFunc(()=>{Log("ㅇㅉ")});
+        Log("-----");
+        callFunc(Log);
+        Log("-----");
+
+        // JS에서 사용하는 생성자 함수.
+        function ConstFunc(){
+            this.prop1 = 34;
+            this.prop2 = "text"
+        }
+        let object1 = new ConstFunc();
+        let object2 = {
+            prop1:34,
+            prop2:"text"
+        };
+        Log(object1)
+        Log(object2)
+
+        class MyClz{
+            constructor(prop1,prop2){ //java 기본생성자 개념
+                this.prop1 = prop1;
+                this.prop2 = prop2; 
+            }
+        }
+        let object3= new MyClz(34, "text");
+        Log(object3)
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h4>비동기 함수 호출</h4>
+    <div id="result-area"></div>
+    <script>
+        const resultArea = document.getElementById("result-area");
+        function fn_sysnc(){
+            console.log("동기 함수에서 출력된 텍스트");
+        }
+        fn_sysnc();
+        console.log("함수 호출 이후에 출력된 텍스트");
+        new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                // console.log("2초뒤에 출력됨.");
+                let data = "2초뒤에 출력됨."; //2초뒤에 갖고놀려면
+                resolve(data); //resolve에 넣고 이제 갖고 놀려면
+            },2000);
+        }).then((d=>{console.log(d);})) //다시 그결과를 실행시킨다는 뜻에 넣는다
+
+        console.log("=======언제 출력되나?=======");
+
+        new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                let number = Math.trunc(Math.random()*10);
+                if(number % 2 == 0){ // resolve reject 판단은 여기서
+                    resolve(number);
+                } else {
+                    reject(new Error(`${number} 가 홀수니까 에러!`));
+                }
+            },1000);
+        }).then(n=>{console.log("잘만들어진 짝수 : ", n)}) //resolve로 어떻게 하겠다
+        .catch(err=>console.log(err)) //리젝트로 어떻게 하겠다
+
+        new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                let number = Math.trunc(Math.random()*10);
+                if(number % 2 == 0){
+                    resolve(number);
+                } else {
+                    reject(new Error(`${number} 가 홀수니까 에러!`));
+                }
+            },1000);
+        }).then(n=>{ //한번더 1000배로 뻥튀기
+            return new Promise((resolve2, reject2)=>{ //then함수로 다시 할려면 return 지정
+                setTimeout(()=>{
+                    resolve2(n * 1000);
+                }, 2000);
+            });
+        }) .then((n1000)=>{
+            resultArea.innerHTML = `3초 뒤에 만들어진 숫자 ${n1000}`;
+        })
+        .catch(err=>console.log(err))
+</script>
+</body>
+</html>

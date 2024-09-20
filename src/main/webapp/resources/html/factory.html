@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test-div">테스트용 엘리먼트</div>
+    <script>
+        const iQuery = function(selector){
+            let element = document.querySelector(selector);
+            return {
+                0 : element,
+                html:function(src){
+                    if(src){
+                        element.innerHTML = src;
+                    } else {
+                        return element.innerHTML;
+                    }
+                }
+            }
+        }
+
+        console.log(iQuery("#test-div")[0]);
+        let iQueryObj = iQuery("#test-div")
+        console.log(iQueryObj.html());
+
+        const $ = iQuery;
+        $("#test-div").html("<p>변경한 텍스트</p>");
+
+
+        function fun1(){}
+        const func2 = function(){}
+        const func3 = ()=>{}
+        function ConstFunc(){
+            this.prop1 = 34;
+        }
+        let obj1 = new ConstFunc();
+        console.log(obj1.prop1);
+
+        function func4(){
+            return {prop1:23};
+        }
+        console.log(func4().prop1);
+        let obj2 = func4();
+        console.log(obj2.prop1);
+
+
+    </script>
+</body>
+</html>

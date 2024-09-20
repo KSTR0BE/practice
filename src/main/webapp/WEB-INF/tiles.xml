@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd" >
+<tiles-definitions>
+
+
+  <definition name="abstractParent" template="/WEB-INF/layouts/layout_NA.jsp">
+  	<put-attribute name="preScript" value="/WEB-INF/includee/preScript.jsp" />
+  	<put-attribute name="header" value="/WEB-INF/includee/header.jsp" />
+  	<put-attribute name="sidebar" value="/WEB-INF/includee/sidebar.jsp" />
+  	<put-attribute name="footer" value="/WEB-INF/includee/footer.jsp" />
+  	<put-attribute name="postScript" value="/WEB-INF/includee/postScript.jsp" />
+  </definition>
+  
+  <definition name="index" extends="abstractParent" >
+  	<put-attribute name="contentPage" value="/WEB-INF/views/index.jsp" />
+  </definition>
+  
+  <definition name="buyer/*" extends="abstractParent" >
+  	<put-attribute name="contentPage" value="/WEB-INF/views/buyer/{1}.jsp" />
+  </definition>
+  
+  <definition name="prod/*" extends="abstractParent" >
+  	<put-attribute name="contentPage" value="/WEB-INF/views/prod/{1}.jsp" />
+  </definition>
+  
+  <definition name="member/*" extends="abstractParent" >
+  	<put-attribute name="contentPage" value="/WEB-INF/views/member/{1}.jsp" />
+  </definition>
+  
+  
+  
+  
+
+  
+</tiles-definitions>
